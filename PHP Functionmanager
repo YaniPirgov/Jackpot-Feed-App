@@ -1,0 +1,39 @@
+<?php
+
+require_once "connection.php";
+
+class funtionHandler{
+    public function getAntwoordByInput($aInput) {            
+        global $conn;
+
+        $statement = $conn->prepare("SELECT * FROM hetgeluid WHERE antwoord LIKE '?';");
+
+        $statement->bindValue(1, $aInput);
+
+        $statement->execute();
+
+        return $statement->fetchObject();
+    }
+
+    public function getBCWaarde() {            
+        global $conn;
+
+        $statement = $conn->prepare("SELECT bc FROM hetgeluid");
+
+        $statement->execute();
+
+        return $statement->fetchObject();
+    }
+
+    public function updateBCWaarde($bcWaarde) {            
+        global $conn;
+
+        $statement = $conn->prepare("UPDATE hetgeluid SET bc = ? WHERE id = 1");
+
+        $statement->bindValue(1, $bcWaarde);
+
+        $statement->execute();
+    }
+}
+
+?>
